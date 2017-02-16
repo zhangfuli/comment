@@ -1,4 +1,4 @@
-
+var app = angular.module('myApp' , []);
 //commentSrv
 function CommentObj ($http) {
 	this.getComment = function (commentId, callback){
@@ -28,7 +28,7 @@ app.controller('photoController', ['$scope','$http','commentSrv',
 		function ($scope, $http, commentSrv){
 			$http.get('/photos').success(function (data, status, headers, config){
 				$scope.photos = data;
-				$scope.photo = $scope.photo[0];
+				$scope.photo = $scope.photos[0];
 				$scope.loadComments();
 			})
 			.error(function (data, status, headers, config){
@@ -45,7 +45,7 @@ app.controller('photoController', ['$scope','$http','commentSrv',
 				});
 			};
 			$scope.addReply = function (parentCommentId, subject, body){
-				var newComment = {subject:subject,body;body};
+				var newComment = {subject:subject,body:body};
 				commentSrv.addComment($scope.commentThread._id,
 						parentCommentId,newComment,function (err, comment){
 							$scope.loadComments();
@@ -60,5 +60,36 @@ app.controller('photoController', ['$scope','$http','commentSrv',
 					.error(function (data, status, headers, config){
 						$scope.photo = {};
 					});
+			};
+}]);
+
+//pageController
+app.controller('pageController',['$scope','$http','commentSrv',
+		function ($scope, $http, commentSrv){
+			$http.get('/page',{params:{pageName:"Photos Page"}})
+				.success(function (data, status, headers, config){
+					$scope.page = data;
+					$scope.loadComments();
+				})
+				.error(function (data, status, headers, config){
+					$scope.Page = {};
+				});
+			$scope.addReply = function (parentCommentId, subject, body){
+				var newComment = {subject:sbject ,body:body};
+				commentSrv.addComment($scope.commentThread._id,
+						parentCommentId,
+						newComment,function (err, comment){
+							$scope.loadComments();
+						});
+			};
+			$scope.loadComments = function () {
+				commentSrv.getComment($scope.page.commentId,
+						function (err, comment){
+							if(err){
+								$scope.commentThread = {};
+							}else{
+								$scope.commentThread = comment;
+							}
+						});
 			};
 }]);

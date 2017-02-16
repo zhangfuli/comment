@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Comments</title>
+	<link rel="stylesheet" href="/static/css/comment_styles.css">
 </head>
 <body ng-app='myApp'>
 	<h2>Comments Example</h2>
@@ -14,8 +15,8 @@
 			</div>
 		</div>
 		<div id='photoContainer'>
-		<p class="imageTitle">{{photo.title}}</p>
-		<img class="mainPhoto" ng-src='../images/{{photo.filename}}'>
+			<p class="imageTitle">{{photo.title}}</p>
+			<img class="mainPhoto" ng-src='../images/{{photo.filename}}'>
 		</div>
 		<div id='photoComments' 
 			ng-init='addComment=false;replySubject="";replyBody=""'>
@@ -33,6 +34,6 @@
 		</div>
 	</div>
 	<script src='http://code.angularjs.org/1.2.9/angular.min.js'></script>
-	<script src='/static/js/comment_app.js'></script>
+	<script src='../static/js/comment_app.js'></script>
 </body>
 </html>

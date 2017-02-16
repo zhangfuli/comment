@@ -1,4 +1,4 @@
-var mongoose = replies('mongoose'),
+var mongoose = require('mongoose'),
 	CommentThread = mongoose.model('CommentThread'),
 	Reply = mongoose.model('Reply');
 exports.getComment = function (req ,res ){
